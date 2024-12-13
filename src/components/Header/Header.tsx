@@ -7,11 +7,11 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Project", path: "/project" },
-    { name: "Experience", path: "/Experience" },
-    { name: "Contact", path: "/contact" },
+    { name: "Home", path: "#home" },
+    { name: "About", path: "#about" },
+    { name: "Project", path: "#project" },
+    { name: "Experience", path: "#experience" },
+    { name: "Contact", path: "#contact" },
   ];
 
   const toggleMenu = () => {
