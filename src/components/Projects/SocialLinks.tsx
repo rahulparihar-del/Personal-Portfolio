@@ -5,17 +5,17 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 const socialLinks = [
   {
     icon: Github,
-    href: 'https://github.com',
+    href: 'https://github.com/rahulparihar-del',
     label: 'GitHub Profile',
   },
   {
     icon: Linkedin,
-    href: 'https://www.linkedin.com/in/rishiraj-singh-chauhan-0b2969225/',
+    href: 'https://www.linkedin.com/in/rahulpariharr/',
     label: 'LinkedIn Profile',
   },
   {
     icon: Mail,
-    href: 'mailto:rishiiiraj16@gmail.com',
+    href: 'https://mail.google.com/mail/?view=cm&fs=1&to=rahulpariharmalii@gmail.com&su=Hello%20Rahul&body=Hi%20Rahul,%20I%20would%20like%20to%20connect%20with%20you!',
     label: 'Email Contact',
   },
 ];
@@ -37,6 +37,7 @@ const SocialLinks: React.FC = () => {
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.2 }}
+          target="_blank"
         >
           <Icon size={24} />
         </motion.a>

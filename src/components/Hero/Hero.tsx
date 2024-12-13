@@ -3,7 +3,8 @@ import GradientTitle from "./GradientTitle";
 import SocialLinks from "../Projects/SocialLinks";
 import HeroImage from "./HeroImage";
 import TechStack from "../ui/TechStack";
-import { Send, Code } from "lucide-react";
+import { Send } from "lucide-react";
+import { MdOutlineFileDownload } from "react-icons/md";
 import { motion } from "framer-motion";
 import HeroButton from "../ui/HeroButton";
 import user from "../../assets/Rahul.jpeg";
@@ -30,11 +31,17 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.6 }}
           >
-            <HeroButton href="#contact" variant="primary" icon={Send}>
+            <HeroButton href="#contact" variant="primary" icon={Send} target="_self">
               Let's Talk!
             </HeroButton>
-            <HeroButton href="#projects" variant="secondary" icon={Code}>
-              View Work
+            <HeroButton
+              href="https://drive.google.com/uc?export=download&id=1iw8dIJGjLPLInKawrU-RTkOQhfnKqEit"
+              variant="secondary"
+              icon={MdOutlineFileDownload}
+              download
+              target="_blank"
+            >
+              Get Resume
             </HeroButton>
           </motion.div>
         </div>

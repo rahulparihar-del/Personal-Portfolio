@@ -3,6 +3,7 @@ import logo from "../../assets/user.png";
 import HeroButton from "../ui/HeroButton";
 import { Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
+
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -18,12 +19,13 @@ const Header: React.FC = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
+
   return (
     <header className="bg-white py-4 shadow">
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center">
           {/* Logo Section */}
-          <div className="text-2xl font-bold text-blue-500">
+          <div className="text-2xl font-bold text-[#327380]">
             <img src={logo} alt="logo" className="w-10 h-10" />
           </div>
 
@@ -49,7 +51,7 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-600 hover:text-blue-500 focus:outline-none"
+            className="md:hidden text-gray-600 hover:text-[#327380]focus:outline-none"
             onClick={toggleMenu}
           >
             {isMenuOpen ? (
@@ -68,7 +70,7 @@ const Header: React.FC = () => {
                 <a
                   key={link.path}
                   href={link.path}
-                  className="block text-gray-600 hover:text-blue-500 transition-colors"
+                  className="block text-gray-600 hover:text-[#327380] transition-colors"
                 >
                   {link.name}
                 </a>
