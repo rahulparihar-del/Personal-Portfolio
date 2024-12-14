@@ -1,25 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
 
 const ContactForm: React.FC = () => {
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   console.log('Form submitted:', formData);
-  // };
+  const [isSubmitting, setIsSubmitting] = useState(false); // State to track submission
 
   interface FormDataObject {
     [key: string]: string;
   }
 
-  interface ApiResponse {
-    success: boolean;
-    [key: string]: string | boolean;
-  }
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true); // Disable the button during submission
+
     const formData = new FormData(e.currentTarget);
 
     formData.append("access_key", "992abc0a-f9ba-4031-b128-31651e3c60d2");
@@ -28,18 +22,20 @@ const ContactForm: React.FC = () => {
     const object: FormDataObject = Object.fromEntries(formData) as FormDataObject;
     const json = JSON.stringify(object);
 
-    // Sending the form data to the server
-    const res: ApiResponse = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: json
-    }).then((res) => res.json());
-
-    if (res.success) {
-      console.log("Success", res);
+    try {
+      // Sending the form data to the server
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: json
+      });
+    } catch {
+      // Handle error if needed (e.g., show an error message to the user)
+    } finally {
+      setIsSubmitting(false); // Re-enable the button after submission
     }
   };
 
@@ -66,7 +62,7 @@ const ContactForm: React.FC = () => {
           {field === 'message' ? (
             <textarea
               id={field}
-              name="message" // Add the name attribute
+              name="message"
               rows={4}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#327380] focus:ring-[#327380] bg-white p-3"
               required
@@ -75,7 +71,7 @@ const ContactForm: React.FC = () => {
             <input
               type={field === 'email' ? 'email' : 'text'}
               id={field}
-              name={field} // Add the name attribute
+              name={field}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#327380] focus:ring-[#327380] bg-white p-3"
               required
             />
@@ -84,12 +80,15 @@ const ContactForm: React.FC = () => {
       ))}
       <motion.button
         type="submit"
-        className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#327380] hover:bg-[#256c5b] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        className={`inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white ${
+          isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#327380] hover:bg-[#256c5b]'
+        } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+        whileHover={isSubmitting ? {} : { scale: 1.05 }}
+        whileTap={isSubmitting ? {} : { scale: 0.95 }}
+        disabled={isSubmitting} // Disable button when submitting
       >
         <Send className="mr-2 h-4 w-4" />
-        Send Message
+        {isSubmitting ? 'Submitting...' : 'Send Message'}
       </motion.button>
     </motion.form>
   );
