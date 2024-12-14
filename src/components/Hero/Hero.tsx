@@ -17,7 +17,7 @@ const Hero: React.FC = () => {
           <HeroImage src={user} alt="Coding workspace" />
         </div>
         <div className="space-y-8">
-          <GradientTitle name="Rahul Parihar" role="Fontend Developer" />
+          <GradientTitle name="Rahul Parihar" role="Frontend Developer" />
           <p className="text-xl text-black">
             Passionate about creating elegant solutions to complex problems.
             Specialized in full-stack development with modern technologies.
