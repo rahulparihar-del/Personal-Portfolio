@@ -1,7 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaReact, FaJs, FaGithub } from 'react-icons/fa'; 
-import { RiTailwindCssFill } from 'react-icons/ri'; 
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FaReact, FaJs, FaGithub } from "react-icons/fa";
+import { RiTailwindCssFill } from "react-icons/ri";
 
 interface HeroImageProps {
   src: string;
@@ -9,8 +9,15 @@ interface HeroImageProps {
 }
 
 const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className="relative flex justify-center items-center">
+    <div
+      className="relative flex justify-center items-center"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Main Image */}
       <motion.img
         src={src}
         alt={alt}
@@ -29,16 +36,16 @@ const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
         {/* Rotating container */}
         <motion.div
           className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center sm:block hidden md:block"
-          animate={{ rotate: 360 }}
+          animate={isHovered ? { rotate: 0 } : { rotate: 360 }}
           transition={{
-            duration: 10,  // Slower rotation duration
-            repeat: Infinity, // Repeats the rotation indefinitely
-            ease: 'linear',
+            duration: 10, // Slower rotation duration
+            repeat: isHovered ? 0 : Infinity, // Stop repeating when hovered
+            ease: "linear",
           }}
         >
           {/* Top Icon */}
           <motion.div
-            className="text-[#327380] absolute top-[-17%] left-1/2 transform -translate-x-1/2"
+            className="text-[#327380] absolute top-[-19%] left-1/2 transform -translate-x-1/2"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -48,7 +55,7 @@ const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
 
           {/* Bottom Icon */}
           <motion.div
-            className="text-[#327380] absolute bottom-[-17%] left-1/2 transform -translate-x-1/2"
+            className="text-[#327380] absolute bottom-[-19%] left-1/2 transform -translate-x-1/2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -58,7 +65,7 @@ const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
 
           {/* Left Icon */}
           <motion.div
-            className="text-[#327380] absolute left-[-0%] top-1/2 transform -translate-y-1/2"
+            className="text-[#327380] absolute left-[5%] top-1/2 transform -translate-y-1/2"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
@@ -68,7 +75,7 @@ const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
 
           {/* Right Icon */}
           <motion.div
-            className="text-[#327380] absolute right-[-0%] top-1/2 transform -translate-y-1/2"
+            className="text-[#327380] absolute right-[5%] top-1/2 transform -translate-y-1/2"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}

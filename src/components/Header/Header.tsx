@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../assets/user.png";
 import HeroButton from "../ui/HeroButton";
 import { Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
-
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const navLinks = [
     { name: "Home", path: "#home" },
@@ -19,10 +19,27 @@ const Header: React.FC = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
+  // Track scrolling to add blur background
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50); // Adjust threshold as needed
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <header className="bg-white py-4 shadow">
-      <div className="container mx-auto px-6">
+    <header
+      className={`${
+        isScrolled
+          ? "backdrop-blur-md bg-white/40 shadow-md"
+          : "bg-white"
+      } fixed top-0 left-0 w-full z-50 transition-all duration-300`}
+    >
+      <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo Section */}
           <div className="text-2xl font-bold text-[#327380]">
@@ -51,7 +68,7 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-600 hover:text-[#327380]focus:outline-none"
+            className="md:hidden text-gray-600 hover:text-[#327380] focus:outline-none"
             onClick={toggleMenu}
           >
             {isMenuOpen ? (
