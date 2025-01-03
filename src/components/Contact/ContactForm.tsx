@@ -10,16 +10,49 @@ const ContactForm: React.FC = () => {
     email: '',
     message: '',
   });
+  const [errors, setErrors] = useState<Partial<Record<FormFields, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Update form field values dynamically
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    // Clear errors when the user modifies the field
+    if (errors[name as FormFields]) {
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+    }
+  };
+
+  // Validation logic
+  const validate = () => {
+    const newErrors: Partial<Record<FormFields, string>> = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required.';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required.';
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+      newErrors.email = 'Invalid email address.';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!validate()) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -46,7 +79,7 @@ const ContactForm: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {['name', 'email', 'message'].map((field) => (
+      {(['name', 'email', 'message'] as FormFields[]).map((field) => (
         <div key={field} className="space-y-2">
           <label htmlFor={field} className="block text-sm font-medium text-gray-700">
             {field.charAt(0).toUpperCase() + field.slice(1)}
@@ -58,8 +91,10 @@ const ContactForm: React.FC = () => {
               rows={4}
               value={formData.message}
               onChange={handleChange}
-              className="w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              required
+              className={`w-full rounded-md border ${
+                errors[field] ? 'border-red-500' : 'border-gray-300'
+              } p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500`}
+              // required
             />
           ) : (
             <input
@@ -67,9 +102,14 @@ const ContactForm: React.FC = () => {
               value={formData[field as FormFields]}
               name={field}
               onChange={handleChange}
-              className="w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              required
+              className={`w-full rounded-md border ${
+                errors[field] ? 'border-red-500' : 'border-gray-300'
+              } p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500`}
+              // required
             />
+          )}
+          {errors[field] && (
+            <p className="text-sm text-red-500">{errors[field]}</p>
           )}
         </div>
       ))}
