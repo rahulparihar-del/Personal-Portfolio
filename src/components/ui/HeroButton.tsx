@@ -20,12 +20,12 @@ export default function HeroButton({
   target = '_self',
 }: HeroButtonProps) {
   const baseStyles =
-    "px-8 py-3 rounded-full font-medium transition-all transform hover:scale-105 flex items-center gap-2";
+    "px-5 py-2.5 sm:px-7 sm:py-3 rounded-full text-sm sm:text-base font-medium transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 w-full xs:w-auto";
   const variants = {
     primary:
-      "bg-[#327280] hover:bg-[#256c5b] text-white shadow-lg hover:shadow-xl",
+      "bg-gradient-to-r from-[#327280] to-[#1a5c66] hover:from-[#2a6470] hover:to-[#155560] text-white shadow-lg hover:shadow-xl hover:shadow-[#327280]/25",
     secondary:
-      "bg-white/10 backdrop-blur-sm text-black border-2 border-gray-200 dark:border-[#256c5b] hover:border-[#256c5b] dark:hover:border-[#256c5b]",
+      "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-2 border-gray-200 dark:border-gray-700 hover:border-[#327280]/40 dark:hover:border-[#5ab4c4]/40 hover:text-[#327280] dark:hover:text-[#5ab4c4] shadow-sm hover:shadow-md",
   };
 
   return (
@@ -37,7 +37,7 @@ export default function HeroButton({
       className={`${baseStyles} ${variants[variant]}`}
     >
       {children}
-      {Icon && <Icon size={20} />}
+      {Icon && <Icon size={18} />}
     </a>
   );
 }

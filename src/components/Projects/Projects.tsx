@@ -40,22 +40,27 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section className="py-20 bg-gray-50" id="projects">
-      <div className="container mx-auto px-6">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gray-50 dark:bg-gray-950 transition-colors duration-300" id="projects">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-4xl font-bold">Featured Projects</h2>
-          <p className="mt-4 text-gray-600">
+          <p className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-[#327280] dark:text-[#5ab4c4] mb-2">
+            &#9866; My work
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white">
+            Featured Projects
+          </h2>
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-lg mx-auto">
             Here are some of my recent works that showcase my skills and experience
           </p>
         </motion.div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {projects.map((project, index) => (
             <ProjectCard 
               key={index} 

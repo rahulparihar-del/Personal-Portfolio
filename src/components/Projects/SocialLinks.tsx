@@ -23,7 +23,7 @@ const socialLinks = [
 const SocialLinks: React.FC = () => {
   return (
     <motion.div
-      className="flex space-x-4"
+      className="flex justify-center md:justify-start space-x-3 sm:space-x-4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.9 }}
@@ -33,13 +33,13 @@ const SocialLinks: React.FC = () => {
           key={href}
           href={href}
           aria-label={label}
-          className="p-2 text-black hover:text-[#327380] transition-colors"
-          whileHover={{ scale: 1.2 }}
+          className="p-2.5 sm:p-3 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-[#327280] dark:hover:text-[#5ab4c4] hover:shadow-md hover:border-[#327280]/20 dark:hover:border-[#5ab4c4]/30 transition-all duration-300"
+          whileHover={{ scale: 1.15, y: -2 }}
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.2 }}
           target="_blank"
         >
-          <Icon size={24} />
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
         </motion.a>
       ))}
     </motion.div>
