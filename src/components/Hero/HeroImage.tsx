@@ -28,15 +28,15 @@ const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Decorative dashed ring */}
+      {/* Decorative dashed ring — hidden on mobile */}
       <motion.div
-        className="absolute w-[240px] h-[240px] sm:w-[310px] sm:h-[310px] md:w-[370px] md:h-[370px] lg:w-[430px] lg:h-[430px] rounded-full border-2 border-dashed border-[#327280]/20 z-0"
+        className="absolute hidden sm:block w-[310px] h-[310px] md:w-[370px] md:h-[370px] lg:w-[430px] lg:h-[430px] rounded-full border-2 border-dashed border-[#327280]/20 z-0"
         animate={{ rotate: 360 }}
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Soft glow */}
-      <div className="absolute w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px] rounded-full blur-3xl opacity-15 z-0 bg-[#327280]" />
+      {/* Soft glow — hidden on mobile */}
+      <div className="absolute hidden sm:block w-[260px] h-[260px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px] rounded-full blur-3xl opacity-15 z-0 bg-[#327280]" />
 
       {/* Main Image with gradient border */}
       <motion.div
@@ -47,7 +47,7 @@ const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
         <img
           src={src}
           alt={alt}
-          className="rounded-full w-44 h-44 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-[22rem] xl:h-[22rem] object-cover border-4 border-white dark:border-gray-800"
+          className="rounded-full w-36 h-36 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-[22rem] xl:h-[22rem] object-cover border-4 border-white dark:border-gray-800"
         />
       </motion.div>
 
@@ -101,17 +101,17 @@ const HeroImage: React.FC<HeroImageProps> = ({ src, alt }) => {
       </motion.div>
 
       {/* Mobile-only tech strip */}
-      <div className="flex sm:hidden justify-center gap-2.5 mt-8 flex-wrap px-2">
+      <div className="flex sm:hidden justify-center gap-2 mt-5 flex-wrap px-4">
         {orbitIcons.map((item, index) => (
           <motion.div
             key={item.label}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-2 flex items-center justify-center"
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-1.5 flex items-center justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08 * index }}
             whileHover={{ scale: 1.15 }}
           >
-            <item.Icon className="w-5 h-5" style={{ color: item.color }} />
+            <item.Icon className="w-4 h-4" style={{ color: item.color }} />
           </motion.div>
         ))}
       </div>
